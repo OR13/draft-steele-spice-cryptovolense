@@ -96,10 +96,10 @@ Table of Contents
 1.  Introduction
 
    The data density limitations of a single QR Code can be overcome
-   through the use of an animated QR Codes, where each frame of the
+   through the use of animated QR Codes, where each frame of the
    animation is a valid QR Code.  Because QR Codes were originally
    developed to support transmission of text, not binary, it is
-   desirable to apply special base encoding, compression and forward
+   desirable to apply specific base encoding, compression and forward
    error correction, to provide a generic binary content transmission
    capability through animated qr codes.
 
@@ -110,7 +110,7 @@ Table of Contents
 
    This document describes how to use these ingredients to transmit
    arbitrary content of a known type from a sender to a receiver through
-   the presenmtation of an animated QR Code by the sender to the
+   the presentation of an animated QR Code by the sender to the
    receiver.
 
                     .----------.
