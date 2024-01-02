@@ -150,15 +150,15 @@ Next, the `message data url` MUST be converted to bytes, and the Raptor Q encodi
 
 The result is `transmission configuration` as bytes, and `transmission packets` as bytes.
 
-In cases where this protocol is used with static `transmission configuration`, those details may be hard coded or discovered through some reliable out of band mechansism.
-
 Edtiors note: We might need to define a content type for `transmission configuration`, ending in `+json` or `+cbor`.
+
+In cases where this protocol is used with static `transmission configuration`, those details may be hard coded or discovered through some reliable out of band mechansism.
 
 Editors note: We may want to define fountain code agility, such that coding schemes other than RaptorQ can be used.
 
 Next, the packet bytes produced by {{-RaptorQ}} are compressed using gzip as described in {{-GZIP}} or zstd as described in {{-ZSTD}}.
 
-Edtior note: Need to decide if compression agility is valuable, and if so how to signal it, or if not, which compression scheme to require.
+Edtior note: Need to decide if compression agility is valuable, how to signal it, or which compression scheme to require.
 
 Next, the `transmission configuration` and `compressed transmission packets` are encoded using {{-Base45}}.
 
@@ -166,7 +166,7 @@ Finally, the `base encoded transmission configuration` and `base encoded transmi
 
 # Recovery
 
-The receiver MUST read the framed of the `animated transmission image`, storing each unique base45 encoded text string.
+The receiver MUST read the frames of the `animated transmission image`, storing each unique base45 encoded text string.
 
 Once the `transmission configuration` has been recovered, the recovery of the original `message data url` can be attempted using {{-RaptorQ}}.
 
@@ -205,7 +205,7 @@ According to {{BCP205}}, "this will allow reviewers and working groups to assign
 
 An open-source implementation was initiated and is maintained by the Transmute Industries Inc. - Transmute, and is available at:
 
-- https://github.com/transmute-industries/transmute.codes
+- [transmute-industries/transmute.codes](https://github.com/transmute-industries/transmute.codes)
 
 An application demonstrating these concepts is available at [https://transmute.codes](https://transmute.codes).
 
@@ -216,7 +216,7 @@ The current version ('main') implements the transmission and recovery algorithms
 The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.
 
 The implementation uses a wasm module, built from this rust implementation of RaptorQ {{-RaptorQ}}, maintained at:
-- https://github.com/cberner/raptorq
+- [cberner/raptorq](https://github.com/cberner/raptorq)
 
 Several other dependencies are used, but the RaptorQ implementation is the most relevant.
 
@@ -235,17 +235,27 @@ A detailed analysis of identifier to public key binding, and recommendations sui
 Note that {{-RaptorQ}} and {{-Base45}} and Base64 as used in {{-DataURL}} are encoding schemes, NOT encryption schemes, and they provide no confidentiality.
 
 Because the data that is encoded within QR Codes is visible to any system that can see the images, any sensitive data should be encrypted before transmission.
+
 In the context of this specification, this means the `message data url` MUST include a content type for an encryption envelope, suitable for the confientiality requirements of the use case.
 
 In the case that an encrypted message is transmitted as a Data URL, the content type of the message MUST be registered {{-IANA-Media-Types}}, for example `application/jose` might be used to transmit a JSON Web Encryption as described in {{-JOSE-JWE}}, and `application/cose` might be used to transmit a cose encrypt envelope as described in {{-COSE-Encrypt}}.
 
 ## Context Binding
 
-It is recommended that encryption envelopes supporting multiple key agreement and content encryption schemes ensure that ciphertexts commit to the specific keys and algorithms used. Additional context binding such as external aad in HPKE might be useful to achieve this.
+It is recommended that encryption envelopes supporting multiple key agreement and content encryption schemes ensure that ciphertexts commit to the specific keys and algorithms used.
+
+Additional context binding such as external aad in HPKE might be useful to achieve this.
 
 ## Browser APIs
 
-[WICG/identity-credential](https://github.com/WICG/identity-credential) discusses a similar proposal related to invoking a presentation from a mobile device running a mobile operating system, to a browser requesting a presentation on behalf of a web origin. It is possible that some content types could be shared between this browser API use case, and the QR Code transport use case.
+[WICG/identity-credential](https://github.com/WICG/identity-credential) discusses a similar proposal related to invoking a presentation from a mobile device running a mobile operating system, to a browser requesting a presentation on behalf of a web origin.
+
+It is possible that some content types could be shared between this browser API use case, and the QR Code transport use case.
+
+## Proximal and Remote Presentations
+
+It is possible to transmit animated QR Codes from a holder's handheld device to a verifier's camera / scanner, and to transmit animated QR Codes over an established video channel.
+Additional security guidance is required regarding replay attack and proxy attacks on in person and remote presentations, that is beyond the scope of this document.
 
 # IANA Considerations
 
