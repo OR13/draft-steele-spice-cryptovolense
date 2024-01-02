@@ -19,11 +19,11 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "Cryptovolense"
+abbrev: "cryptovolense"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-steele-spice-cryptovolense-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number:
 date:
