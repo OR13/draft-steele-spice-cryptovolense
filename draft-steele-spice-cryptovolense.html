@@ -1174,6 +1174,9 @@ This document describes a generic optical transmission protocol suitable for dig
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
                 <p id="section-toc.1-1.8.2.4.1"><a href="#section-8.4" class="auto internal xref">8.4</a>.  <a href="#name-browser-apis" class="internal xref">Browser APIs</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.5">
+                <p id="section-toc.1-1.8.2.5.1"><a href="#section-8.5" class="auto internal xref">8.5</a>.  <a href="#name-proximal-and-remote-present" class="internal xref">Proximal and Remote Presentations</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
@@ -1378,11 +1381,11 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-4-1">The sender <span class="bcp14">MUST</span> prepare their <code>message</code> for transmission by first encoding their data as a <code>message data url</code> according to the process described in <span>[<a href="#RFC2397" class="cite xref">RFC2397</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">Next, the <code>message data url</code> <span class="bcp14">MUST</span> be converted to bytes, and the Raptor Q encoding algorithm described in <span>[<a href="#RFC6330" class="cite xref">RFC6330</a>]</span> must be applied.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">The result is <code>transmission configuration</code> as bytes, and <code>transmission packets</code> as bytes.<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">In cases where this protocol is used with static <code>transmission configuration</code>, those details may be hard coded or discovered through some reliable out of band mechansism.<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">Edtiors note: We might need to define a content type for <code>transmission configuration</code>, ending in <code>+json</code> or <code>+cbor</code>.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-4">Edtiors note: We might need to define a content type for <code>transmission configuration</code>, ending in <code>+json</code> or <code>+cbor</code>.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">In cases where this protocol is used with static <code>transmission configuration</code>, those details may be hard coded or discovered through some reliable out of band mechansism.<a href="#section-4-5" class="pilcrow">¶</a></p>
 <p id="section-4-6">Editors note: We may want to define fountain code agility, such that coding schemes other than RaptorQ can be used.<a href="#section-4-6" class="pilcrow">¶</a></p>
 <p id="section-4-7">Next, the packet bytes produced by <span>[<a href="#RFC6330" class="cite xref">RFC6330</a>]</span> are compressed using gzip as described in <span>[<a href="#RFC1952" class="cite xref">RFC1952</a>]</span> or zstd as described in <span>[<a href="#RFC8878" class="cite xref">RFC8878</a>]</span>.<a href="#section-4-7" class="pilcrow">¶</a></p>
-<p id="section-4-8">Edtior note: Need to decide if compression agility is valuable, and if so how to signal it, or if not, which compression scheme to require.<a href="#section-4-8" class="pilcrow">¶</a></p>
+<p id="section-4-8">Edtior note: Need to decide if compression agility is valuable, how to signal it, or which compression scheme to require.<a href="#section-4-8" class="pilcrow">¶</a></p>
 <p id="section-4-9">Next, the <code>transmission configuration</code> and <code>compressed transmission packets</code> are encoded using <span>[<a href="#RFC9285" class="cite xref">RFC9285</a>]</span>.<a href="#section-4-9" class="pilcrow">¶</a></p>
 <p id="section-4-10">Finally, the <code>base encoded transmission configuration</code> and <code>base encoded transmission packets</code> are converted to QR Codes, and each of the <code>transmission images</code> is used as a frame in the resulting animated QR Code.<a href="#section-4-10" class="pilcrow">¶</a></p>
 </section>
@@ -1392,7 +1395,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-recovery">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-recovery" class="section-name selfRef">Recovery</a>
       </h2>
-<p id="section-5-1">The receiver <span class="bcp14">MUST</span> read the framed of the <code>animated transmission image</code>, storing each unique base45 encoded text string.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">The receiver <span class="bcp14">MUST</span> read the frames of the <code>animated transmission image</code>, storing each unique base45 encoded text string.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Once the <code>transmission configuration</code> has been recovered, the recovery of the original <code>message data url</code> can be attempted using <span>[<a href="#RFC6330" class="cite xref">RFC6330</a>]</span>.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">The recovery process ends when either:<a href="#section-5-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5-4">
@@ -1447,7 +1450,7 @@ Readers are advised to note that other implementations may exist.<a href="#secti
 <p id="section-7.1-1">An open-source implementation was initiated and is maintained by the Transmute Industries Inc. - Transmute, and is available at:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.1-2.1">
-            <p id="section-7.1-2.1.1">https://github.com/transmute-industries/transmute.codes<a href="#section-7.1-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-7.1-2.1.1"><a href="https://github.com/transmute-industries/transmute.codes">transmute-industries/transmute.codes</a><a href="#section-7.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-7.1-3">An application demonstrating these concepts is available at <a href="https://transmute.codes">https://transmute.codes</a>.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
@@ -1455,7 +1458,7 @@ Readers are advised to note that other implementations may exist.<a href="#secti
 <p id="section-7.1-5">The current version ('main') implements the transmission and recovery algorithms of this draft.<a href="#section-7.1-5" class="pilcrow">¶</a></p>
 <p id="section-7.1-6">The project and all corresponding code and data maintained on GitHub are provided under the Apache License, version 2.<a href="#section-7.1-6" class="pilcrow">¶</a></p>
 <p id="section-7.1-7">The implementation uses a wasm module, built from this rust implementation of RaptorQ <span>[<a href="#RFC6330" class="cite xref">RFC6330</a>]</span>, maintained at:
-- https://github.com/cberner/raptorq<a href="#section-7.1-7" class="pilcrow">¶</a></p>
+- <a href="https://github.com/cberner/raptorq">cberner/raptorq</a><a href="#section-7.1-7" class="pilcrow">¶</a></p>
 <p id="section-7.1-8">Several other dependencies are used, but the RaptorQ implementation is the most relevant.<a href="#section-7.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1483,9 +1486,9 @@ A detailed analysis of identifier to public key binding, and recommendations sui
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-encryption" class="section-name selfRef">Encryption</a>
         </h3>
 <p id="section-8.2-1">Note that <span>[<a href="#RFC6330" class="cite xref">RFC6330</a>]</span> and <span>[<a href="#RFC9285" class="cite xref">RFC9285</a>]</span> and Base64 as used in <span>[<a href="#RFC2397" class="cite xref">RFC2397</a>]</span> are encoding schemes, NOT encryption schemes, and they provide no confidentiality.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">Because the data that is encoded within QR Codes is visible to any system that can see the images, any sensitive data should be encrypted before transmission.
-In the context of this specification, this means the <code>message data url</code> <span class="bcp14">MUST</span> include a content type for an encryption envelope, suitable for the confientiality requirements of the use case.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.2-3">In the case that an encrypted message is transmitted as a Data URL, the content type of the message <span class="bcp14">MUST</span> be registered <span>[<a href="#IANA.media-types" class="cite xref">IANA.media-types</a>]</span>, for example <code>application/jose</code> might be used to transmit a JSON Web Encryption as described in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>, and <code>application/cose</code> might be used to transmit a cose encrypt envelope as described in <span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span>.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">Because the data that is encoded within QR Codes is visible to any system that can see the images, any sensitive data should be encrypted before transmission.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">In the context of this specification, this means the <code>message data url</code> <span class="bcp14">MUST</span> include a content type for an encryption envelope, suitable for the confientiality requirements of the use case.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+<p id="section-8.2-4">In the case that an encrypted message is transmitted as a Data URL, the content type of the message <span class="bcp14">MUST</span> be registered <span>[<a href="#IANA.media-types" class="cite xref">IANA.media-types</a>]</span>, for example <code>application/jose</code> might be used to transmit a JSON Web Encryption as described in <span>[<a href="#RFC7516" class="cite xref">RFC7516</a>]</span>, and <code>application/cose</code> might be used to transmit a cose encrypt envelope as described in <span>[<a href="#RFC9053" class="cite xref">RFC9053</a>]</span>.<a href="#section-8.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="context-binding">
@@ -1493,7 +1496,8 @@ In the context of this specification, this means the <code>message data url</cod
         <h3 id="name-context-binding">
 <a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-context-binding" class="section-name selfRef">Context Binding</a>
         </h3>
-<p id="section-8.3-1">It is recommended that encryption envelopes supporting multiple key agreement and content encryption schemes ensure that ciphertexts commit to the specific keys and algorithms used. Additional context binding such as external aad in HPKE might be useful to achieve this.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-1">It is recommended that encryption envelopes supporting multiple key agreement and content encryption schemes ensure that ciphertexts commit to the specific keys and algorithms used.<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<p id="section-8.3-2">Additional context binding such as external aad in HPKE might be useful to achieve this.<a href="#section-8.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="browser-apis">
@@ -1501,7 +1505,17 @@ In the context of this specification, this means the <code>message data url</cod
         <h3 id="name-browser-apis">
 <a href="#section-8.4" class="section-number selfRef">8.4. </a><a href="#name-browser-apis" class="section-name selfRef">Browser APIs</a>
         </h3>
-<p id="section-8.4-1"><a href="https://github.com/WICG/identity-credential">WICG/identity-credential</a> discusses a similar proposal related to invoking a presentation from a mobile device running a mobile operating system, to a browser requesting a presentation on behalf of a web origin. It is possible that some content types could be shared between this browser API use case, and the QR Code transport use case.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-1"><a href="https://github.com/WICG/identity-credential">WICG/identity-credential</a> discusses a similar proposal related to invoking a presentation from a mobile device running a mobile operating system, to a browser requesting a presentation on behalf of a web origin.<a href="#section-8.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.4-2">It is possible that some content types could be shared between this browser API use case, and the QR Code transport use case.<a href="#section-8.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="proximal-and-remote-presentations">
+<section id="section-8.5">
+        <h3 id="name-proximal-and-remote-present">
+<a href="#section-8.5" class="section-number selfRef">8.5. </a><a href="#name-proximal-and-remote-present" class="section-name selfRef">Proximal and Remote Presentations</a>
+        </h3>
+<p id="section-8.5-1">It is possible to transmit animated QR Codes from a holder's handheld device to a verifier's camera / scanner, and to transmit animated QR Codes over an established video channel.
+Additional security guidance is required regarding replay attack and proxy attacks on in person and remote presentations, that is beyond the scope of this document.<a href="#section-8.5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

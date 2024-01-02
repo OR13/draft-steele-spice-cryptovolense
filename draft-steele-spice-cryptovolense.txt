@@ -85,6 +85,7 @@ Table of Contents
      8.2.  Encryption
      8.3.  Context Binding
      8.4.  Browser APIs
+     8.5.  Proximal and Remote Presentations
    9.  IANA Considerations
    10. References
      10.1.  Normative References
@@ -213,12 +214,12 @@ Table of Contents
    The result is transmission configuration as bytes, and transmission
    packets as bytes.
 
+   Edtiors note: We might need to define a content type for transmission
+   configuration, ending in +json or +cbor.
+
    In cases where this protocol is used with static transmission
    configuration, those details may be hard coded or discovered through
    some reliable out of band mechansism.
-
-   Edtiors note: We might need to define a content type for transmission
-   configuration, ending in +json or +cbor.
 
    Editors note: We may want to define fountain code agility, such that
    coding schemes other than RaptorQ can be used.
@@ -226,9 +227,8 @@ Table of Contents
    Next, the packet bytes produced by [RFC6330] are compressed using
    gzip as described in [RFC1952] or zstd as described in [RFC8878].
 
-   Edtior note: Need to decide if compression agility is valuable, and
-   if so how to signal it, or if not, which compression scheme to
-   require.
+   Edtior note: Need to decide if compression agility is valuable, how
+   to signal it, or which compression scheme to require.
 
    Next, the transmission configuration and compressed transmission
    packets are encoded using [RFC9285].
@@ -240,7 +240,7 @@ Table of Contents
 
 5.  Recovery
 
-   The receiver MUST read the framed of the animated transmission image,
+   The receiver MUST read the frames of the animated transmission image,
    storing each unique base45 encoded text string.
 
    Once the transmission configuration has been recovered, the recovery
@@ -306,7 +306,8 @@ Table of Contents
    An open-source implementation was initiated and is maintained by the
    Transmute Industries Inc. - Transmute, and is available at:
 
-   *  https://github.com/transmute-industries/transmute.codes
+   *  transmute-industries/transmute.codes (https://github.com/
+      transmute-industries/transmute.codes)
 
    An application demonstrating these concepts is available at
    https://transmute.codes (https://transmute.codes).
@@ -320,8 +321,8 @@ Table of Contents
    are provided under the Apache License, version 2.
 
    The implementation uses a wasm module, built from this rust
-   implementation of RaptorQ [RFC6330], maintained at: -
-   https://github.com/cberner/raptorq
+   implementation of RaptorQ [RFC6330], maintained at: - cberner/raptorq
+   (https://github.com/cberner/raptorq)
 
    Several other dependencies are used, but the RaptorQ implementation
    is the most relevant.
@@ -348,10 +349,11 @@ Table of Contents
 
    Because the data that is encoded within QR Codes is visible to any
    system that can see the images, any sensitive data should be
-   encrypted before transmission.  In the context of this specification,
-   this means the message data url MUST include a content type for an
-   encryption envelope, suitable for the confientiality requirements of
-   the use case.
+   encrypted before transmission.
+
+   In the context of this specification, this means the message data url
+   MUST include a content type for an encryption envelope, suitable for
+   the confientiality requirements of the use case.
 
    In the case that an encrypted message is transmitted as a Data URL,
    the content type of the message MUST be registered
@@ -364,17 +366,29 @@ Table of Contents
 
    It is recommended that encryption envelopes supporting multiple key
    agreement and content encryption schemes ensure that ciphertexts
-   commit to the specific keys and algorithms used.  Additional context
-   binding such as external aad in HPKE might be useful to achieve this.
+   commit to the specific keys and algorithms used.
+
+   Additional context binding such as external aad in HPKE might be
+   useful to achieve this.
 
 8.4.  Browser APIs
 
    WICG/identity-credential (https://github.com/WICG/identity-
    credential) discusses a similar proposal related to invoking a
    presentation from a mobile device running a mobile operating system,
-   to a browser requesting a presentation on behalf of a web origin.  It
-   is possible that some content types could be shared between this
+   to a browser requesting a presentation on behalf of a web origin.
+
+   It is possible that some content types could be shared between this
    browser API use case, and the QR Code transport use case.
+
+8.5.  Proximal and Remote Presentations
+
+   It is possible to transmit animated QR Codes from a holder's handheld
+   device to a verifier's camera / scanner, and to transmit animated QR
+   Codes over an established video channel.  Additional security
+   guidance is required regarding replay attack and proxy attacks on in
+   person and remote presentations, that is beyond the scope of this
+   document.
 
 9.  IANA Considerations
 
