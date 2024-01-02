@@ -56,12 +56,12 @@ This document describes a generic optical transmission protocol suitable for dig
 
 # Introduction
 
-The data density limitations of a single QR Code can be overcome through the use of an animated QR Codes, where each frame of the animation is a valid QR Code.
-Because QR Codes were originally developed to support transmission of text, not binary, it is desirable to apply special base encoding, compression and forward error correction, to provide a generic binary content transmission capability through animated qr codes.
+The data density limitations of a single QR Code can be overcome through the use of animated QR Codes, where each frame of the animation is a valid QR Code.
+Because QR Codes were originally developed to support transmission of text, not binary, it is desirable to apply specific base encoding, compression and forward error correction, to provide a generic binary content transmission capability through animated qr codes.
 
 {{-RaptorQ}} describes a fully specified error correction scheme, {{-Base45}} describes an optimal base encoding for QR Codes, and {{-DataURL}} describes a content identifier scheme suitable for encoding binary data of a known content type.
 
-This document describes how to use these ingredients to transmit arbitrary content of a known type from a sender to a receiver through the presenmtation of an animated QR Code by the sender to the receiver.
+This document describes how to use these ingredients to transmit arbitrary content of a known type from a sender to a receiver through the presentation of an animated QR Code by the sender to the receiver.
 
 ~~~aasvg
                  .----------.
