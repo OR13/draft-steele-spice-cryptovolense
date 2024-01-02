@@ -48,8 +48,8 @@ informative:
 
 --- abstract
 
-Digital presentations enable a holder of digital credentials to transmit proof of possession to a verifier.
-QR Codes presented by a holder to a verifier introduce challenges regarding maximum transmission size, error correction and confidentiality.
+Digital presentations enable a holder of digital credentials to present proofs to a verifier.
+Using QR Codes for digital presentations introduces challenges regarding maximum transmission size, error correction and confidentiality.
 This document describes a generic optical transmission protocol suitable for digital credential presentations.
 
 --- middle
@@ -57,6 +57,7 @@ This document describes a generic optical transmission protocol suitable for dig
 # Introduction
 
 The data density limitations of a single QR Code can be overcome through the use of animated QR Codes, where each frame of the animation is a valid QR Code.
+
 Because QR Codes were originally developed to support transmission of text, not binary, it is desirable to apply specific base encoding, compression and forward error correction, to provide a generic binary content transmission capability through animated qr codes.
 
 {{-RaptorQ}} describes a fully specified error correction scheme, {{-Base45}} describes an optimal base encoding for QR Codes, and {{-DataURL}} describes a content identifier scheme suitable for encoding binary data of a known content type.
